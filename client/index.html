@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        .container {
+            max-width: 600px;
+        }
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+    <script type="module" src="client.js"></script>
+</head>
+<body>
+<div class="container mt-3" id="app" v-cloak>
+    <h1>Contacts</h1>
+    <hr>
+    <form @submit.prevent="create">
+        <div class="form-group">
+            <label for="inputName">Name</label>
+            <input type="text" class="form-control" id="inputName" v-model="form.name">
+        </div>
+        <div class="form-group">
+            <label for="inputTel">Phone</label>
+            <input type="tel" class="form-control" id="inputTel" v-model="form.phone">
+        </div>
+        <button type="submit" class="btn btn-primary" :disabled="!inputValidation">Add new contact</button>
+    </form>
+    <hr>
+    <div v-if="contacts.length">
+        <div class="card mb-3" v-for="contact in contacts">
+            <div class="card-body">
+                <span class="card-text float-left">{{contact.name}}, <i>{{contact.phone}}</i></span>
+                <div class="float-right">
+                    <button type="button" class="btn btn-outline-primary" disabled>Edit</button>
+                    <button type="button" class="btn btn-outline-danger" @click="remove(contact.id)">Delete</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <p v-else>No contacts.</p>
+</div>
+
+</body>
+</html>
